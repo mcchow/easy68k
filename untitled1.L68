@@ -1,0 +1,50 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 3/11/2020 9:06:39 pm
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      :
+00000000                             3  * Written by :
+00000000                             4  * Date       :
+00000000                             5  * Description:
+00000000                             6  *-----------------------------------------------------------
+00001000                             7      ORG    $1000
+00001000                             8  START:                  ; first instruction of program
+00001000  4FF9 00009000              9      LEA $9000, A7
+00001006  43F8 6000                 10      LEA $6000, A1    
+0000100A  32FC 8001                 11      MOVE.W #%1000000000000001, (A1)+ 
+0000100E  32FC C003                 12      MOVE.W #%1100000000000011, (A1)+   
+00001012  32FC E007                 13      MOVE.W #%1110000000000111, (A1)+   
+00001016  32FC F00F                 14      MOVE.W #%1111000000001111, (A1)+   
+0000101A  32BC F81F                 15      MOVE.W #%1111100000011111, (A1)    
+0000101E  43F8 6000                 16      LEA $6000, A1
+00001022  103C 0000                 17      MOVE.B #0, D0   
+00001026  3219                      18  LOOP1   MOVE.W (A1)+, D1      
+00001028  C27C 00FF                 19      AND.W #$00FF, D1        
+0000102C  E249                      20      LSR #1, D1             
+0000102E  3F01                      21      MOVE.W D1, -(SP)   
+00001030  5200                      22      ADDQ.B #1,D0                    
+00001032  B03C 0005                 23      CMP.B #5, D0          
+00001036  6DEE                      24      BLT LOOP1      
+00001038  43F8 6000                 25      LEA $6000, A1    
+0000103C  103C 0000                 26      MOVE.B #0, D0  
+00001040  32DF                      27  LOOP2   MOVE.W (SP)+, (A1)+    
+00001042  5200                      28      ADDQ.B #1,D0      
+00001044  B03C 0005                 29      CMP.B #5, D0     
+00001048  6DF6                      30      BLT LOOP2     
+0000104A  FFFF FFFF                 31      SIMHALT             ; halt simulator
+0000104E                            32  
+0000104E                            33  
+0000104E                            34  
+0000104E                            35      END    START        ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+LOOP1               1026
+LOOP2               1040
+START               1000

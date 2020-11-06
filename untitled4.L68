@@ -1,0 +1,42 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 3/11/2020 9:02:50 pm
+
+00001000                             1      ORG $1000
+00001000                             2  START: ; first instruction of program
+00001000                             3  * Put program code here
+00001000  3039 0000103A              4      MOVE C,D0
+00001006  3239 00001038              5      MOVE SUM,D1
+0000100C  343C 0000                  6      MOVE #0,D2
+00001010  6000 0004                  7      BRA LOOP
+00001014  5242                       8  INC ADD #1,D2
+00001016  B07C 0001                  9  LOOP CMP #1,D0
+0000101A  6600 000C                 10      BNE SETC
+0000101E  D242                      11      ADD D2,D1
+00001020  303C 0000                 12      MOVE #0,D0
+00001024  6000 0006                 13      BRA ENDLOOP 
+00001028  303C 0001                 14  SETC MOVE #1,D0
+0000102C  B47C 0032                 15  ENDLOOP CMP #50,D2
+00001030  63E2                      16      BLS INC
+00001032  33C1 00001038             17      MOVE D1,SUM
+00001038                            18  SIMHALT ; halt simulator
+00001038                            19  * Put variables and constants here
+00001038= 0000                      20  SUM DC.W $0000
+0000103A= 0001                      21  C DC.W $0001
+0000103C                            22      END START ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+C                   103A
+ENDLOOP             102C
+INC                 1014
+LOOP                1016
+SETC                1028
+SIMHALT             1038
+START               1000
+SUM                 1038

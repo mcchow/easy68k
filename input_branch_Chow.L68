@@ -1,0 +1,120 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 15/10/2020 12:42:31 am
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      :Hello World 2
+00000000                             3  * Written by :Martin Chow
+00000000                             4  * Date       :14/10/2020
+00000000                             5  * Description:Sample Program 1 for Quickstart Guide
+00000000                             6  *-----------------------------------------------------------
+00001000                             7      ORG    $1000
+00001000                             8  START:                  ; first instruction of program
+00001000                             9  
+00001000  =0000000D                 10  CR      EQU     $0D
+00001000  =0000000A                 11  LF      EQU     $0A
+00001000                            12  
+00001000                            13  * ------Code for output------ 
+00001000  43F9 000010C4             14  LOOP    LEA     MESSAGE,A1
+00001006                            15  
+00001006  103C 000E                 16          MOVE.B  #14,D0
+0000100A  4E4F                      17          TRAP    #15
+0000100C                            18  
+0000100C                            19  * ------Code for input------  
+0000100C  103C 0004                 20          MOVE.B  #4,D0
+00001010  4E4F                      21          TRAP    #15
+00001012  B2BC 001D29C5             22          CMP.L   #1911237,D1
+00001018  6700 00A4                 23          BEQ     DONE
+0000101C                            24          
+0000101C  B23C 0014                 25          CMP.B   #20,D1
+00001020  6D00 008C                 26          BLT     INVALID
+00001024  B23C 0019                 27          CMP.B   #25,D1
+00001028  6E00 0084                 28          BGT     INVALID
+0000102C                            29          
+0000102C  B23C 0015                 30          CMP.B   #21,D1
+00001030  6600 0010                 31          BNE     TWO
+00001034  43F9 0000110D             32          LEA     DISPONE,A1
+0000103A  103C 000E                 33          MOVE.B  #14,D0
+0000103E  4E4F                      34          TRAP    #15
+00001040                            35          
+00001040  60BE                      36          BRA     LOOP
+00001042                            37          
+00001042  B23C 0016                 38  TWO     CMP.B   #22,D1
+00001046  6600 0010                 39          BNE     THREE
+0000104A  43F9 0000115B             40          LEA     DISPTWO,A1
+00001050  103C 000E                 41          MOVE.B  #14,D0
+00001054  4E4F                      42          TRAP    #15
+00001056  60A8                      43          BRA     LOOP
+00001058                            44          
+00001058  B23C 0017                 45  THREE   CMP.B   #23,D1           Compares D1 and 23
+0000105C  6600 0010                 46          BNE     FOUR            BEQ branches if D1 and 23 are not equal
+00001060  43F9 0000117E             47          LEA     DISPTHR,A1      
+00001066  103C 000E                 48          MOVE.B  #14,D0  
+0000106A  4E4F                      49          TRAP    #15
+0000106C  6092                      50          BRA     LOOP
+0000106E                            51          
+0000106E  B23C 0018                 52  FOUR    CMP.B   #24,D1           Compares D1 and 24
+00001072  6600 0012                 53          BNE     FIVE
+00001076  43F9 000011B4             54          LEA     DISPFOU,A1      
+0000107C  103C 000E                 55          MOVE.B  #14,D0  
+00001080  4E4F                      56          TRAP    #15
+00001082  6000 FF7C                 57          BRA     LOOP
+00001086                            58  
+00001086  B23C 0019                 59  FIVE    CMP.B   #25,D1           Compares D1 and 25
+0000108A  6600 0012                 60          BNE     ZERO        BEQ branches if D1 and 25 are not equal
+0000108E  43F9 000011D4             61          LEA     DISPFIV,A1      
+00001094  103C 000E                 62          MOVE.B  #14,D0  
+00001098  4E4F                      63          TRAP    #15
+0000109A  6000 FF64                 64          BRA     LOOP
+0000109E                            65  
+0000109E  43F9 000011EF             66  ZERO    LEA     DISPZER,A1
+000010A4  103C 000E                 67          MOVE.B  #14,D0
+000010A8  4E4F                      68          TRAP    #15
+000010AA  6000 FF54                 69          BRA     LOOP
+000010AE                            70         
+000010AE  43F9 000010EC             71  INVALID LEA     INV,A1
+000010B4  103C 000E                 72          MOVE.B  #14,D0
+000010B8  4E4F                      73          TRAP    #15
+000010BA  6000 FF44                 74          BRA     LOOP
+000010BE                            75      
+000010BE  103C 0009                 76  DONE    MOVE.B  #9,D0
+000010C2  4E4F                      77          TRAP    #15
+000010C4                            78  
+000010C4= 45 6E 74 65 72 20 ...     79  MESSAGE DC.B    'Enter a number, Enter 1911237 to exit: ',0
+000010EC= 54 68 61 74 20 69 ...     80  INV     DC.B    'That is not between 20 and 25.',CR,LF,0
+0000110D= 76 61 75 6C 74 20 ...     81  DISPONE DC.B    'vault 21 is a Vault-Tec vault that was once hidden under Las Vegas, Nevada.',CR,LF,0
+0000115B= 49 20 67 6F 74 20 ...     82  DISPTWO DC.B    'I got a fortune II on my pickaxe',CR,LF,0
+0000117E= 33 36 30 20 73 70 ...     83  DISPTHR DC.B    '360 spin is the fanciest Juking in Dead by Daylight',CR,LF,0
+000011B4= 46 6F 75 72 20 6D ...     84  DISPFOU DC.B    'Four means dead in my country',CR,LF,0
+000011D4= 49 20 6C 6F 76 65 ...     85  DISPFIV DC.B    'I love watching youtube?',CR,LF,0
+000011EF= 44 6F 6E 74 20 79 ...     86  DISPZER DC.B    'Dont you think I will tell you I forgot my student number when I write this program?',CR,LF,0
+00001246                            87  
+00001246                            88  
+00001246                            89      END    START        ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+CR                  D
+DISPFIV             11D4
+DISPFOU             11B4
+DISPONE             110D
+DISPTHR             117E
+DISPTWO             115B
+DISPZER             11EF
+DONE                10BE
+FIVE                1086
+FOUR                106E
+INV                 10EC
+INVALID             10AE
+LF                  A
+LOOP                1000
+MESSAGE             10C4
+START               1000
+THREE               1058
+TWO                 1042
+ZERO                109E

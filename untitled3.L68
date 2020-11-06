@@ -1,0 +1,43 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 3/11/2020 8:48:51 pm
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      :
+00000000                             3  * Written by :
+00000000                             4  * Date       :
+00000000                             5  * Description:
+00000000                             6  *-----------------------------------------------------------
+00001000                             7      ORG    $1000
+00001000                             8  START:                  ; first instruction of program
+00001000                             9  
+00001000                            10  * Put program code here
+00001000  383C 000A                 11      MOVE.W  #$0A,D4
+00001004  7A00                      12      MOVE.L   #0,D5
+00001006  323C 0000                 13      MOVE    #0,D1
+0000100A                            14  
+0000100A  0304                      15  LOOP    BTST     D1,D4
+0000100C  6600 0006                 16          BNE     ADDONE
+00001010  6000 0004                 17          BRA     NOTADD
+00001014  5245                      18  ADDONE    ADD   #1,D5
+00001016  5241                      19  NOTADD    ADD   #1,D1
+00001018  B27C 0020                 20      CMP #32,D1
+0000101C  66EC                      21      BNE LOOP
+0000101E  FFFF FFFF                 22      SIMHALT             ; halt simulator
+00001022                            23  
+00001022                            24  
+00001022                            25  * Put variables and constants here
+00001022                            26  
+00001022                            27      END    START        ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+ADDONE              1014
+LOOP                100A
+NOTADD              1016
+START               1000
