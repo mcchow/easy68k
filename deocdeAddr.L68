@@ -1,0 +1,97 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 15/11/2020 11:21:30 am
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      :
+00000000                             3  * Written by :
+00000000                             4  * Date       :
+00000000                             5  * Description:
+00000000                             6  *-----------------------------------------------------------
+00001000                             7      ORG    $1000
+00001000                             8  START:                  ; first instruction of program
+00001000                             9  *TEST only , getting input
+00001000  103C 0004                 10      MOVE.B  #4,D0
+00001004  4E4F                      11      TRAP    #15
+00001006                            12  * Assuming address is in D1
+00001006                            13      
+00001006  2601                      14  DeAddr  MOVE.L D1,D3
+00001008  C67C 003F                 15          AND #63,D3
+0000100C                            16  * decode MODE
+0000100C  3803                      17          MOVE    D3,D4
+0000100E  E644                      18          ASR #3,D4
+00001010  B87C 0000                 19          CMP #0,D4
+00001014  6700 0012                 20          BEQ REGISTERD
+00001018  B87C 0001                 21          CMP #1,D4
+0000101C  6700 0020                 22          BEQ REGISTERA
+00001020  B87C 0002                 23          CMP #2,D4
+00001024  6700 003C                 24          BEQ DIRADDR
+00001028                            25  *SECTION FOR D# AND A#
+00001028  43F9 00001080             26  REGISTERD    LEA     D,A1
+0000102E  103C 000E                 27          MOVE.B  #14,D0
+00001032  4E4F                      28          TRAP    #15
+00001034  4EB9 00001054             29          JSR PRINTDIGI
+0000103A  6000 003E                 30          BRA EndDeAddr
+0000103E  43F9 00001082             31  REGISTERA  LEA     A,A1
+00001044  103C 000E                 32          MOVE.B  #14,D0
+00001048  4E4F                      33          TRAP    #15
+0000104A  4EB9 00001054             34          JSR PRINTDIGI
+00001050  6000 0028                 35          BRA EndDeAddr         
+00001054                            36  *PRINT REGISTER#
+00001054  C67C 0007                 37  PRINTDIGI   AND #7,D3
+00001058  3203                      38      MOVE.W  D3,D1
+0000105A  103C 0003                 39      MOVE.B  #3,D0
+0000105E  4E4F                      40      TRAP    #15
+00001060  4E75                      41      RTS
+00001062                            42  *DIRECT ADDRESS (A#)
+00001062  43F9 00001084             43  DIRADDR LEA     ABra,A1
+00001068  103C 000E                 44          MOVE.B  #14,D0
+0000106C  4E4F                      45          TRAP    #15
+0000106E  C67C 0007                 46      AND #7,D3
+00001072  3203                      47      MOVE.W  D3,D1
+00001074  103C 0003                 48      MOVE.B  #3,D0
+00001078  4E4F                      49      TRAP    #15
+0000107A                            50      
+0000107A                            51      
+0000107A                            52      
+0000107A  3001                      53  EndDeAddr   MOVE D1,D0 
+0000107C  FFFF FFFF                 54      SIMHALT             ; halt simulator
+00001080                            55     
+00001080                            56  
+00001080                            57  * Put variables and constants here
+00001080  =0000000D                 58  CR      EQU     $0D
+00001080  =0000000A                 59  LF      EQU     $0A
+00001080= 44 00                     60  D DC.B    'D',0
+00001082= 41 00                     61  A DC.B    'A',0
+00001084= 28 41 00                  62  ABra DC.B   '(A',0
+00001087= 29 00                     63  CloBra DC.B ')',0
+00001089= 2B 00                     64  PlusSign DC.B '+',0
+0000108B= 2D 00                     65  NegSign DC.B '-',0
+0000108D= 0D 0A 00                  66  NEXTLINE DC.B CR,LF,0
+00001090                            67  
+00001090                            68  
+00001090                            69      END    START        ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+A                   1082
+ABRA                1084
+CLOBRA              1087
+CR                  D
+D                   1080
+DEADDR              1006
+DIRADDR             1062
+ENDDEADDR           107A
+LF                  A
+NEGSIGN             108B
+NEXTLINE            108D
+PLUSSIGN            1089
+PRINTDIGI           1054
+REGISTERA           103E
+REGISTERD           1028
+START               1000
